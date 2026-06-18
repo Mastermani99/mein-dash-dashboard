@@ -142,10 +142,13 @@ def format_pct(x):
 
 
 # ----------------------------
-# App
+# App Setup
 # ----------------------------
 app = Dash(__name__)
 app.title = "IRRBB EVE Simulator"
+
+# 🚀 SERVER-ANPASSUNG 1: Den Flask-Server für Gunicorn freilegen
+server = app.server
 
 app.layout = html.Div(
     style={
@@ -375,5 +378,6 @@ def recalc(kernkapital, curve_rows, deals_rows):
     return base_txt, shock_txt, delta_txt, quote_txt, rechenweg_text, fig, detail_data
 
 
+# 🚀 SERVER-ANPASSUNG 2: Start-Konfiguration für die Cloud
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run_server(debug=False, host='0.0.0.0', port=8050)
